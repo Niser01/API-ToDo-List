@@ -1,22 +1,18 @@
-package dbsettings
+package db_settings
 
 import (
 	"fmt"
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
-func InitDB() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No se pudo cargar el archivo .env")
-	}
+func InitDB() error {
+	var err error
 
 	db_host := os.Getenv("DB_HOST")
 	db_user := os.Getenv("DB_USER")
@@ -32,6 +28,8 @@ func InitDB() {
 	DB, err = gorm.Open(postgres.Open(db_connection), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("Error al conectar con la base de datos: %v", err)
+		return err
 	}
-	fmt.Println("Conexión con la Base de Datos establecida correctamente.")
+	fmt.Printf("Conexión con la Base de Datos establecida correctamente. %v", db_connection)
+	return nil
 }

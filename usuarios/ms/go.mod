@@ -1,9 +1,8 @@
-module api_todo_list_usuarios
+module usuarios/ms
 
 go 1.23.2
 
 require (
-	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.6.0
 	gorm.io/gorm v1.30.0
 )
