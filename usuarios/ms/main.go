@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"usuarios/ms/db_settings"
+	"usuarios/ms/DataBase"
 )
 
 func main() {
-	err := db_settings.InitDB()
+	err := DataBase.InitDB()
 	if err != nil {
 		log.Fatalf("Error al inicializar la base de datos: %v", err)
 	}

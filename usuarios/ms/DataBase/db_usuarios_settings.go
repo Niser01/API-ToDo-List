@@ -1,4 +1,4 @@
-package db_settings
+package DataBase
 
 import (
 	"fmt"
