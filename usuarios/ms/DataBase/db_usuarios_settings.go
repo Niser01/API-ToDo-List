@@ -7,6 +7,7 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 var DB *gorm.DB
@@ -25,11 +26,15 @@ func InitDB() error {
 		db_host, db_user, db_password, db_database, db_port, db_sslmode,
 	)
 
-	DB, err = gorm.Open(postgres.Open(db_connection), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(db_connection), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+		},
+	})
 	if err != nil {
 		log.Fatalf("Error al conectar con la base de datos: %v", err)
 		return err
 	}
-	fmt.Printf("Conexión con la Base de Datos establecida correctamente. %v", db_connection)
+	fmt.Println("Conexión con la Base de Datos establecida correctamente.")
 	return nil
 }

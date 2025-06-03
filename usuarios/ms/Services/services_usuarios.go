@@ -5,6 +5,8 @@ import (
 	"usuarios/ms/Model"
 )
 
+//Son los metodos que interactuan con gorm para hacer las peticiones CRUD a la BD
+
 func CreateTipoDeAutenticacion(nuevoTipo string) error {
 	autenticacion := Model.TipoDeAutenticacion{TipoAutenticacion: nuevoTipo}
 	err := DataBase.DB.Create(&autenticacion).Error
@@ -20,7 +22,7 @@ func ReadFullTipoDeAutenticacion() ([]Model.TipoDeAutenticacion, error) {
 	if err != nil {
 		return []Model.TipoDeAutenticacion{}, err
 	}
-	return tipos, err
+	return tipos, nil
 }
 
 func ReadTipoDeAutenticacionByID(id int) (Model.TipoDeAutenticacion, error) {
