@@ -39,11 +39,3 @@ CREATE TABLE IF NOT EXISTS autenticaciones (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO tipo_de_perfiles (tipo_de_perfil, nombre_animal, personalidad, frase_clave) 
-VALUES ('Buho', 'Buhiño','Le encanta tener todo bajo control. Se siente cómodo con estructuras claras, listas bien organizadas y planes establecidos. No necesita motivación externa, solo herramientas que le ayuden a optimizar su productividad.', '“Lo que no se planea, no se cumple.”'), 
-        ('Zorro', 'Zorriño','Le motiva ver resultados y progresos. Busca mejorar constantemente y valora mucho los logros. Tiende a trabajar por objetivos y le gustan los desafíos. Es ágil, enfocado y competitivo de forma saludable.', '“Ver cuánto he avanzado me da más ganas.”'), 
-        ('Gato', 'Gatiño','Sensible al entorno y a su estado de ánimo. Tiene días buenos y días difíciles, pero quiere mejorar. Valora mucho el apoyo emocional y las palabras motivadoras. Le cuesta arrancar, pero una vez en marcha, avanza.', '“A veces solo necesito que alguien crea en mí.”'), 
-        ('Panda', 'Pandiño','Tranquilo y reflexivo. No le gusta sentirse saturado ni presionado. Prefiere visualizar sus opciones y decidir con calma. Parece relajado, pero cumple lo necesario. Su estilo es relajado pero efectivo.', '“Menos presión, más claridad.”');
-
-INSERT INTO tipo_de_autenticacion (tipo_de_autenticacion) 
-VALUES ('Google'), ('Email');
