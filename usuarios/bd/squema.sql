@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id SERIAL PRIMARY KEY,
     nombre TEXT,
     apellido TEXT,
+    nombre_preferido TEXT,
     perfil_activo BOOLEAN DEFAULT TRUE,
     url_foto_perfil TEXT,
     telefono TEXT,

@@ -18,15 +18,16 @@ type Tipo_de_perfiles struct {
 }
 
 type Usuarios struct {
-	ID              int       `gorm:"primaryKey;column:id" json:"id"`
-	Nombre          string    `gorm:"column:nombre" json:"nombre"`
-	Apellido        string    `gorm:"column:apellido" json:"apellido"`
-	Perfil_activo   bool      `gorm:"column:perfil_activo" json:"perfil_activo"`
-	Url_foto_pertif string    `gorm:"column:url_foto_perfil" json:"url_foto_perfil"`
-	Telefono        string    `gorm:"column:telefono" json:"telefono"`
-	TipoPerfilID    int       `gorm:"column:tipo_perfil" json:"tipo_perfil"`
-	Created_at      time.Time `gorm:"column:created_at" json:"created_at"`
-	Updated_at      time.Time `gorm:"column:updated_at" json:"updated_at"`
+	ID               int       `gorm:"primaryKey;column:id" json:"id"`
+	Nombre           string    `gorm:"column:nombre" json:"nombre"`
+	Apellido         string    `gorm:"column:apellido" json:"apellido"`
+	Nombre_preferido string    `gorm:"column:nombre_preferido" json:"nombre_preferido"`
+	Perfil_activo    bool      `gorm:"column:perfil_activo" json:"perfil_activo"`
+	Url_foto_pertif  string    `gorm:"column:url_foto_perfil" json:"url_foto_perfil"`
+	Telefono         string    `gorm:"column:telefono" json:"telefono"`
+	TipoPerfilID     int       `gorm:"column:tipo_perfil" json:"tipo_perfil"`
+	Created_at       time.Time `gorm:"column:created_at" json:"created_at"`
+	Updated_at       time.Time `gorm:"column:updated_at" json:"updated_at"`
 }
 
 type Autenticaciones struct {
