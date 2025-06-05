@@ -9,6 +9,7 @@ import (
 
 //Son los metodos que interactuan con el API con los handlers REST
 
+// Controladores para TipoDeAutenticacion
 func ControllerCreateTipoDeAutenticacion(w http.ResponseWriter, r *http.Request) {
 	//Se decodifica el json de la peticion HTTP y mapea el JSON en variables de Go
 	var body struct {
@@ -111,4 +112,11 @@ func ControllerDeleteTipoDeAutenticacion(w http.ResponseWriter, r *http.Request)
 		mensaje := fmt.Sprintf("Error al eliminar el registro con id: %v - %v", body.Id, err.Error())
 		http.Error(w, mensaje, http.StatusInternalServerError)
 	}
+}
+
+//****************************************************************
+//Controladores para Tipo_de_perfiles
+
+func ControllerCreateTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
+
 }

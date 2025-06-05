@@ -23,7 +23,7 @@ type Usuarios struct {
 	Apellido         string    `gorm:"column:apellido" json:"apellido"`
 	Nombre_preferido string    `gorm:"column:nombre_preferido" json:"nombre_preferido"`
 	Perfil_activo    bool      `gorm:"column:perfil_activo" json:"perfil_activo"`
-	Url_foto_pertif  string    `gorm:"column:url_foto_perfil" json:"url_foto_perfil"`
+	Url_foto_perfil  string    `gorm:"column:url_foto_perfil" json:"url_foto_perfil"`
 	Telefono         string    `gorm:"column:telefono" json:"telefono"`
 	TipoPerfilID     int       `gorm:"column:tipo_perfil" json:"tipo_perfil"`
 	Created_at       time.Time `gorm:"column:created_at" json:"created_at"`
