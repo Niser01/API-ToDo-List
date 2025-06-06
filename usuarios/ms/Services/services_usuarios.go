@@ -61,15 +61,15 @@ func DeleteTipoDeAutenticacion(id int) error {
 // ****************************************************************
 // Modelo: Tipo_de_perfiles
 type CreateTiposDePerfilesInput struct {
-	Tipo_perfil   string
-	Nombre_animal string
-	Personalidad  string
-	Frase_clave   string
+	Tipo_de_perfil string
+	Nombre_animal  string
+	Personalidad   string
+	Frase_clave    string
 }
 
 func CreateTipo_de_perfiles(input CreateTiposDePerfilesInput) error {
 	creacion := Model.Tipo_de_perfiles{
-		Tipo_de_perfil: input.Tipo_perfil,
+		Tipo_de_perfil: input.Tipo_de_perfil,
 		Nombre_animal:  input.Nombre_animal,
 		Personalidad:   input.Personalidad,
 		Frase_clave:    input.Frase_clave,
