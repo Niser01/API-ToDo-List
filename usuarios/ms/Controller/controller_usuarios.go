@@ -108,7 +108,7 @@ func ControllerDeleteTipoDeAutenticacion(w http.ResponseWriter, r *http.Request)
 	}
 	err := json.NewDecoder(r.Body).Decode(&body)
 	if err != nil {
-		http.Error(w, "JSON invalido", http.StatusInternalServerError)
+		http.Error(w, "JSON invalido", http.StatusBadRequest)
 		return
 	}
 	err = Services.DeleteTipoDeAutenticacion(body.Id)
@@ -204,7 +204,20 @@ func ControllerUpdateTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
 }
 
 func ControllerDeleteTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
-
+	var body struct {
+		Id int `json:"id"`
+	}
+	err := json.NewDecoder(r.Body).Decode(&body)
+	if err != nil {
+		http.Error(w, "Formato de JSON invalido", http.StatusBadRequest)
+		return
+	}
+	err = Services.DeleteTipo_de_perfiles(body.Id)
+	if err != nil {
+		mensaje := fmt.Sprintf("Error al eliminar el registro con id: %v. - %v", body.Id, err.Error())
+		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 }
