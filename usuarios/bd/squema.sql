@@ -16,26 +16,23 @@ CREATE TABLE IF NOT EXISTS tipo_de_perfiles(
     frase_clave TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS usuarios (
+CREATE TABLE IF NOT EXISTS autenticaciones (
     id SERIAL PRIMARY KEY,
-    nombre TEXT,
-    apellido TEXT,
-    nombre_preferido TEXT,
-    perfil_activo BOOLEAN DEFAULT TRUE,
-    url_foto_perfil TEXT,
-    telefono TEXT,
-    tipo_perfil INTEGER REFERENCES tipo_de_perfiles(id) ON DELETE SET NULL, 
+    correo TEXT UNIQUE NOT NULL,
+    password_hash TEXT, 
+    verificado BOOLEAN DEFAULT false,
+    oauth_uid TEXT,
+    tipo_autenticacion INTEGER REFERENCES tipo_de_autenticacion(id) ON DELETE SET NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS autenticaciones (
+CREATE TABLE IF NOT EXISTS usuarios (
     id SERIAL PRIMARY KEY,
-    usuario_id INTEGER UNIQUE REFERENCES usuarios(id) ON DELETE CASCADE,
-    correo TEXT UNIQUE NOT NULL,
-    password_hash TEXT, 
-    oauth_uid TEXT,
-    tipo_autenticacion INTEGER REFERENCES tipo_de_autenticacion(id) ON DELETE SET NULL,
+    autenticacion_id INTEGER REFERENCES autenticaciones(id) ON DELETE CASCADE,
+    nombre_preferido TEXT,
+    perfil_activo BOOLEAN DEFAULT TRUE,
+    tipo_perfil INTEGER REFERENCES tipo_de_perfiles(id) ON DELETE SET NULL, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

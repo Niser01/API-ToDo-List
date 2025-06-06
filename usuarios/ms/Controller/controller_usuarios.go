@@ -28,7 +28,8 @@ func ControllerCreateTipoDeAutenticacion(w http.ResponseWriter, r *http.Request)
 		http.Error(w, mensaje, http.StatusInternalServerError)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 
 func ControllerReadFullTipoDeAutenticacion(w http.ResponseWriter, r *http.Request) {
@@ -77,6 +78,7 @@ func ControllerReadTipoDeAutenticacionByID(w http.ResponseWriter, r *http.Reques
 	err = json.NewEncoder(w).Encode(query)
 	if err != nil {
 		http.Error(w, "Error al codificar la respuesta a JSON", http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -96,6 +98,8 @@ func ControllerUpdateTipoDeAutenticacion(w http.ResponseWriter, r *http.Request)
 		http.Error(w, mensaje, http.StatusInternalServerError)
 		return
 	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 
 func ControllerDeleteTipoDeAutenticacion(w http.ResponseWriter, r *http.Request) {
@@ -111,7 +115,10 @@ func ControllerDeleteTipoDeAutenticacion(w http.ResponseWriter, r *http.Request)
 	if err != nil {
 		mensaje := fmt.Sprintf("Error al eliminar el registro con id: %v - %v", body.Id, err.Error())
 		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
 	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
 
 //****************************************************************
@@ -129,7 +136,9 @@ func ControllerCreateTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		mensaje := fmt.Sprintf("Error al crear el nuevo tipo de pertil. - %v", err.Error())
 		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
 	}
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 }
 
@@ -138,6 +147,7 @@ func ControllerReadFullTipo_de_perfiles(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		mensaje := fmt.Sprintf("Error al buscar los tipos de pertil. - %v", err.Error())
 		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -146,6 +156,7 @@ func ControllerReadFullTipo_de_perfiles(w http.ResponseWriter, r *http.Request) 
 	err = json.NewEncoder(w).Encode(query)
 	if err != nil {
 		http.Error(w, "Error al codificar la respuesta a JSON", http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -157,12 +168,14 @@ func ControllerReadTipo_de_perfilesById(w http.ResponseWriter, r *http.Request) 
 	err = json.NewDecoder(r.Body).Decode(&body_input)
 	if err != nil {
 		http.Error(w, "Formato JSON invalido", http.StatusBadRequest)
+		return
 	}
 
 	query, err := Services.ReadTipo_de_perfilesById(body_input.Id)
 	if err != nil {
 		mensaje := fmt.Sprintf("Error al realizar la query. - %v", err)
 		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
 	}
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -170,5 +183,28 @@ func ControllerReadTipo_de_perfilesById(w http.ResponseWriter, r *http.Request) 
 	err = json.NewEncoder(w).Encode(query)
 	if err != nil {
 		http.Error(w, "Error al codificar la respuesta a JSON", http.StatusInternalServerError)
+		return
 	}
+}
+
+func ControllerUpdateTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
+	var body_input Services.UpdateTipo_de_perfilesInput
+	err := json.NewDecoder(r.Body).Decode(&body_input)
+	if err != nil {
+		http.Error(w, "Formato JSON invalido", http.StatusBadRequest)
+	}
+	err = Services.UpdateTipo_de_perfiles(body_input)
+	if err != nil {
+		message := fmt.Sprintf("Error al actualizar el perfil %v. - %v", body_input.Id, err)
+		http.Error(w, message, http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+}
+
+func ControllerDeleteTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }
