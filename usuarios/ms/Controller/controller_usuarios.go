@@ -289,3 +289,40 @@ func ControllerReadAutenticacionesById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func ControllerUpdateAutenticaciones(w http.ResponseWriter, r *http.Request) {
+	var body_input Services.UpdateAutenticacionesInput
+	err := json.NewDecoder(r.Body).Decode(&body_input)
+	if err != nil {
+		http.Error(w, "Formato JSON invalido", http.StatusBadRequest)
+	}
+
+	err = Services.UpdateAutenticaciones(body_input)
+	if err != nil {
+		mensaje := fmt.Sprintf("Error al actualizar la actualizacion %v. - %v", body_input.Id, err)
+		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+}
+
+func ControllerDeleteAutenticaciones(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Id int `json:"id"`
+	}
+	err := json.NewDecoder(r.Body).Decode(&body)
+	if err != nil {
+		http.Error(w, "Formato JSON invalido", http.StatusBadRequest)
+		return
+	}
+	err = Services.DeleteAutenticaciones(body.Id)
+	if err != nil {
+		mensaje := fmt.Sprintf("Error al eliminar la autenticacion con id: %v.  %v", body.Id, err.Error())
+		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+}

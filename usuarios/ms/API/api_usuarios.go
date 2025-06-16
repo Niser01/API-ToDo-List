@@ -25,3 +25,13 @@ func RutasAPITipoDePerfilesUsuarios(r *mux.Router) {
 	ruta_base.HandleFunc("/update", Controller.ControllerUpdateTipo_de_perfiles).Methods("PUT")
 	ruta_base.HandleFunc("/delete", Controller.ControllerDeleteTipo_de_perfiles).Methods("DELETE")
 }
+
+func RutasAPIAutenticaciones(r *mux.Router) {
+	ruta_base := r.PathPrefix("/autenticacion").Subrouter()
+
+	ruta_base.HandleFunc("/create", Controller.ControllerCreateAutenticaciones).Methods("POST")
+	ruta_base.HandleFunc("/read", Controller.ControllerReadFullAutenticaciones).Methods("GET")
+	ruta_base.HandleFunc("/read_by_id", Controller.ControllerReadAutenticacionesById).Methods("GET")
+	ruta_base.HandleFunc("/update", Controller.ControllerUpdateAutenticaciones).Methods("PUT")
+	ruta_base.HandleFunc("/delete", Controller.ControllerDeleteAutenticaciones).Methods("DELETE")
+}
