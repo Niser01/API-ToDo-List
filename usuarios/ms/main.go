@@ -22,6 +22,7 @@ func main() {
 	route_handler := mux.NewRouter()
 	API.RutasAPITipoDeAutenticacionUsuarios(route_handler)
 	API.RutasAPITipoDePerfilesUsuarios(route_handler)
+	API.RutasAPIAutenticaciones(route_handler)
 	log.Println("MS de usuarios inicializado")
 
 	//Se lanza el servidor en el puerto 8080

@@ -150,11 +150,11 @@ func DeleteTipo_de_perfiles(id int) error {
 // Modelo: Autenticaciones
 
 type CreateAutenticacionesInput struct {
-	Correo               string
-	Password_hash        string
-	Verificado           bool
-	Oauth_uid            string
-	Tipo_autenticacionID int
+	Correo               string `json:"correo"`
+	Password_hash        string `json:"password_hash"`
+	Verificado           bool   `json:"verificado"`
+	Oauth_uid            string `json:"oauth"`
+	Tipo_autenticacionID int    `json:"tipo_autenticacion"`
 }
 
 func CreateAutenticaciones(input CreateAutenticacionesInput) error {
@@ -235,3 +235,6 @@ func DeleteAutenticaciones(id int) error {
 	}
 	return nil
 }
+
+// ****************************************************************
+// Modelo: Usuarios

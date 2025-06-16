@@ -264,7 +264,7 @@ func ControllerReadFullAutenticaciones(w http.ResponseWriter, r *http.Request) {
 
 func ControllerReadAutenticacionesById(w http.ResponseWriter, r *http.Request) {
 	var body_input struct {
-		Id int `json: "id"`
+		Id int `json:"id"`
 	}
 	var err error
 	err = json.NewDecoder(r.Body).Decode(&body_input)
