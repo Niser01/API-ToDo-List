@@ -221,3 +221,71 @@ func ControllerDeleteTipo_de_perfiles(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 }
+
+//********************************************************************
+// Controladores para Autenticaciones
+
+func ControllerCreateAutenticaciones(w http.ResponseWriter, r *http.Request) {
+	var body_input Services.CreateAutenticacionesInput
+	err := json.NewDecoder(r.Body).Decode(&body_input)
+	if err != nil {
+		http.Error(w, "JSON Invalido", http.StatusBadRequest)
+		return
+	}
+
+	err = Services.CreateAutenticaciones(body_input)
+	if err != nil {
+		mensaje := fmt.Sprintf("Error al crear una nueva autenticacion. - %v,", err.Error())
+		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+}
+
+func ControllerReadFullAutenticaciones(w http.ResponseWriter, r *http.Request) {
+	query, err := Services.ReadFullAutenticaciones()
+	if err != nil {
+		mensaje := fmt.Sprintf("Error al buscar las autenticaciones - %v", err.Error())
+		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	err = json.NewEncoder(w).Encode(query)
+	if err != nil {
+		http.Error(w, "Error al codificar la respuesta a JSON", http.StatusInternalServerError)
+		return
+	}
+}
+
+func ControllerReadAutenticacionesById(w http.ResponseWriter, r *http.Request) {
+	var body_input struct {
+		Id int `json: "id"`
+	}
+	var err error
+	err = json.NewDecoder(r.Body).Decode(&body_input)
+	if err != nil {
+		http.Error(w, "Formato JSON inválido", http.StatusBadRequest)
+		return
+	}
+
+	query, err := Services.ReadAutenticacionesById(body_input.Id)
+	if err != nil {
+		mensaje := fmt.Sprintf("Error al realizar la query. - %v", err)
+		http.Error(w, mensaje, http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	err = json.NewEncoder(w).Encode(query)
+	if err != nil {
+		http.Error(w, "Error al codificar la respuesta a JSON", http.StatusInternalServerError)
+		return
+	}
+}
