@@ -172,11 +172,66 @@ func CreateAutenticaciones(input CreateAutenticacionesInput) error {
 	return nil
 }
 
-func ReadFullAutentucaciones() ([]Model.Autenticaciones, error) {
+func ReadFullAutenticaciones() ([]Model.Autenticaciones, error) {
 	var autenticaciones []Model.Autenticaciones
 	err := DataBase.DB.Find(&autenticaciones).Error
 	if err != nil {
 		return []Model.Autenticaciones{}, err
 	}
 	return autenticaciones, nil
+}
+
+func ReadAutenticacionesById(id int) (Model.Autenticaciones, error) {
+	var autenticacion Model.Autenticaciones
+	err := DataBase.DB.First(&autenticacion, id).Error
+	if err != nil {
+		return Model.Autenticaciones{}, err
+	}
+	return autenticacion, nil
+}
+
+type UpdateAutenticacionesInput struct {
+	Id                   int
+	Correo               *string
+	Password_hash        *string
+	Verificado           *bool
+	Oauth_uid            *string
+	Tipo_autenticacionID *int
+}
+
+func UpdateAutenticaciones(input UpdateAutenticacionesInput) error {
+	var registro_a_actualizar Model.Autenticaciones
+	err := DataBase.DB.First(&registro_a_actualizar, input.Id).Error
+	if err != nil {
+		return err
+	}
+	if input.Correo != nil {
+		registro_a_actualizar.Correo = *input.Correo
+	}
+	if input.Password_hash != nil {
+		registro_a_actualizar.Password_hash = *input.Password_hash
+	}
+	if input.Verificado != nil {
+		registro_a_actualizar.Verificado = *input.Verificado
+	}
+	if input.Oauth_uid != nil {
+		registro_a_actualizar.Oauth_uid = *input.Oauth_uid
+	}
+	if input.Tipo_autenticacionID != nil {
+		registro_a_actualizar.Tipo_autenticacionID = *input.Tipo_autenticacionID
+	}
+	err = DataBase.DB.Save(&registro_a_actualizar).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteAutenticaciones(id int) error {
+	registro_a_eliminar := Model.Autenticaciones{ID: id}
+	err := DataBase.DB.Delete(&registro_a_eliminar).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
