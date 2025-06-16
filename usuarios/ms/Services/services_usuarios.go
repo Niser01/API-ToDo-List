@@ -145,3 +145,38 @@ func DeleteTipo_de_perfiles(id int) error {
 	}
 	return nil
 }
+
+// ****************************************************************
+// Modelo: Autenticaciones
+
+type CreateAutenticacionesInput struct {
+	Correo               string
+	Password_hash        string
+	Verificado           bool
+	Oauth_uid            string
+	Tipo_autenticacionID int
+}
+
+func CreateAutenticaciones(input CreateAutenticacionesInput) error {
+	creacion_autenticacion := Model.Autenticaciones{
+		Correo:               input.Correo,
+		Password_hash:        input.Password_hash,
+		Verificado:           input.Verificado,
+		Oauth_uid:            input.Oauth_uid,
+		Tipo_autenticacionID: input.Tipo_autenticacionID,
+	}
+	err := DataBase.DB.Create(&creacion_autenticacion).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func ReadFullAutentucaciones() ([]Model.Autenticaciones, error) {
+	var autenticaciones []Model.Autenticaciones
+	err := DataBase.DB.Find(&autenticaciones).Error
+	if err != nil {
+		return []Model.Autenticaciones{}, err
+	}
+	return autenticaciones, nil
+}
